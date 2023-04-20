@@ -629,7 +629,6 @@ class Program
                     {
                         gestore.VerificaIdUnivoco(id);
                         Cliente.ValidaId(id);
-                        break;
                     }
                     catch (ArgumentException e)
                     {
