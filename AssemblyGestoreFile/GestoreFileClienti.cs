@@ -241,6 +241,10 @@ namespace AssemblyGestoreFile
             {
                 throw new InvalidOperationException($"Errore durante la lettura del file: {ex.Message}");
             }
+            catch (InvalidOperationException e)
+            {
+                throw new InvalidOperationException($" {e.Message}");
+            }
         }
 
         public void VerificaIdUnivoco(string id)

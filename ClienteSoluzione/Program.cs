@@ -523,6 +523,96 @@ class Program
             Console.WriteLine($"Errore generico: {ex.Message}");
         }
     }
+
+    //___// (2) AGGIUNGI CLIENTE //___//
+    //private static void InsertClient(IGestoreC gestore)
+    //{
+    //    ArrayList clientiInseriti = new ArrayList(); // ArrayList in cui memorizza i clienti inseriti
+    //    while (true) // Ciclo per continuare ad aggiungere clienti alla lista finché non viene inserito "N" e si passa al salvataggio
+    //    {
+    //        try
+    //        {
+    //            string id;
+    //            while (true) // Ciclo per controllare che l'id sia valido
+    //            {
+    //                Console.Write("Inserisci l'ID del cliente: ");
+    //                id = Console.ReadLine();
+    //                try
+    //                {
+    //                    gestore.VerificaIdUnivoco(id);
+    //                    Cliente.ValidaId(id);
+    //                    break;
+    //                }
+    //                catch (ArgumentException e)
+    //                {
+    //                    Console.WriteLine(e.Message);
+    //                }
+    //                catch (InvalidOperationException e)
+    //                {
+    //                    Console.WriteLine(e.Message + "Inserisci un nuovo ID.");
+    //                }
+    //                catch (Exception ex)
+    //                {
+    //                    Console.WriteLine("Errore database: " + ex.Message);
+    //                }
+    //            }
+
+    //            string nome = InputValidationMessage("Inserisci il nome del cliente: ", Cliente.ValidaInput);
+    //            string cognome = InputValidationMessage("Inserisci il cognome del cliente: ", Cliente.ValidaInput);
+    //            string citta = InputValidationMessage("Inserisci la città del cliente: ", Cliente.ValidaInput);
+    //            string sesso = InputValidationMessage("Inserisci il sesso del cliente (M/F): ", Cliente.ValidaSesso);
+    //            DateTime dataDiNascita;
+    //            while (true)
+    //            {
+    //                Console.Write("Inserisci la data di nascita del cliente (formato: dd/MM/yyyy): ");
+    //                string dataInput = Console.ReadLine();
+    //                try
+    //                {
+    //                    dataDiNascita = Cliente.ValidaData(dataInput);
+    //                    break;
+    //                }
+    //                catch (ArgumentException e)
+    //                {
+    //                    Console.WriteLine(e.Message);
+    //                }
+    //            }
+
+    //            Cliente nuovoCliente = new Cliente(id, nome, cognome, citta, sesso, dataDiNascita); // Crea un nuovo oggetto Cliente con i dati inseriti e validati
+    //                                                                                                //gestore.AggiungiCliente(nuovoCliente);
+    //            clientiInseriti.Add(nuovoCliente); // Aggiunge il nuovo cliente all'ArrayList dei clienti inseriti
+
+    //            Console.WriteLine("Cliente aggiunto con successo.");
+    //            Console.Write("Premi \"Invio\" per aggiungere un altro cliente o \"N\" per salvare i clienti inseriti ");
+    //            string continua = Console.ReadLine().ToUpper();
+    //            if (continua == "N") // Esce dal ciclo se l'utente inserisce "N", altrimenti continua a chiedere di aggiungere
+    //            {
+    //                break;
+    //            }
+    //        }
+    //        catch (IOException ex)
+    //        {
+    //            Console.WriteLine($"Errore file: {ex.Message}");
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Console.WriteLine("Errore database: " + ex.Message);
+    //        }
+    //    }
+    //    // Salvataggio di tutti i clienti inseriti
+    //    try
+    //    {
+    //        foreach (var cliente in clientiInseriti)
+    //        {
+    //            gestore.AggiungiCliente((Cliente)cliente);
+    //        }
+    //        Console.WriteLine("Salvataggio completato.");
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine("Errore durante il salvataggio dei clienti: " + ex.Message);
+    //    }
+    //}
+
     private static void InsertClient(IGestoreC gestore)
     {
         ArrayList clientiInseriti = new ArrayList(); // ArrayList in cui memorizza i clienti inseriti
@@ -547,7 +637,7 @@ class Program
                     }
                     catch (InvalidOperationException e)
                     {
-                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.Message + "Inserisci un nuovo ID.");
                     }
                 }
 
@@ -587,14 +677,9 @@ class Program
             {
                 Console.WriteLine($"Errore file: {ex.Message}");
             }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine("Inserisci un nuovo ID.");
-            }
             catch (Exception ex)
             {
-                Console.WriteLine("Errore database: " + ex.Message);
+                Console.WriteLine($"Errore database: {ex.Message}");
             }
         }
         // Salvataggio di tutti i clienti inseriti
@@ -611,6 +696,8 @@ class Program
             Console.WriteLine("Errore durante il salvataggio dei clienti: " + ex.Message);
         }
     }
+
+    //___// (3) MODIFICA CLIENTE //___//
     private static void ModifyClient(IGestoreC gestore)
     {
         Console.Write("Inserisci l'ID del cliente da modificare: ");
@@ -646,6 +733,7 @@ class Program
             Console.WriteLine(ex.Message);
         }
     }
+
     //___// (4) ELIMINA CLIENTE //___//
     private static void DeleteClient(IGestoreC gestore)
     {
