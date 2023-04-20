@@ -9,6 +9,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Linq;
 using System;
+using System.Collections;
 
 namespace AssemblyGestoreFile
 {
@@ -22,7 +23,7 @@ namespace AssemblyGestoreFile
         }
 
         //___// (1) CERCA CLIENTE //___//
-        public List<Cliente> CercaCliente(string parametroRicerca, string scelta)
+        public ArrayList CercaCliente(string parametroRicerca, string scelta)
         {
             // Controlla la validità della scelta
             string[] scelteValide = { "ID", "Nome", "Cognome", "Citta", "Sesso", "DataDiNascita" };
@@ -45,7 +46,7 @@ namespace AssemblyGestoreFile
             {
                 Cliente.ValidaId(parametroRicerca);
             }
-            List<Cliente> clientiTrovati = new List<Cliente>();
+            ArrayList clientiTrovati = new ArrayList();
 
             try
             {
@@ -81,6 +82,7 @@ namespace AssemblyGestoreFile
             }
             return clientiTrovati;
         }
+
 
         //___// (2) AGGIUNGI CLIENTE //___//
         public void AggiungiCliente(Cliente nuovoCliente)
@@ -218,8 +220,6 @@ namespace AssemblyGestoreFile
         //___// FUNZIONI //___//
         private void VerificaIdUnivocoFile(string id)
         {
-            bool idEsiste = false;
-
             try
             {
                 using (StreamReader sr = new StreamReader(_filePercorso))
@@ -232,8 +232,7 @@ namespace AssemblyGestoreFile
 
                         if (idCorrente == id)
                         {
-                            idEsiste = true;
-                            break;
+                            throw new InvalidOperationException("L'elemento con l'ID specificato è già presente nel file.");
                         }
                     }
                 }
@@ -242,11 +241,8 @@ namespace AssemblyGestoreFile
             {
                 throw new InvalidOperationException($"Errore durante la lettura del file: {ex.Message}");
             }
-            if (idEsiste)
-            {
-                throw new InvalidOperationException("L'elemento con l'ID specificato è già presente nel file.");
-            }
         }
+
         public void VerificaIdUnivoco(string id)
         {
             VerificaIdUnivocoFile(id);

@@ -25,9 +25,9 @@ namespace AssemblyGestore
         }
 
         //___// (1) CERCA CLIENTE //___//
-        public List<Cliente> CercaCliente(string parametroRicerca, string scelta)
+        public ArrayList CercaCliente(string parametroRicerca, string scelta)
         {
-            List<Cliente> clientiTrovati = new List<Cliente>();  // Crea una nuova lista vuota per memorizzare i clienti trovati
+            ArrayList clientiTrovati = new ArrayList(); // Crea una nuova lista vuota per memorizzare i clienti trovati
 
             // Verifica che il parametro di ricerca non sia nullo o vuoto
             if (string.IsNullOrEmpty(parametroRicerca))
@@ -61,7 +61,6 @@ namespace AssemblyGestore
                             // Leggi i risultati riga per riga
                             while (reader.Read())
                             {
-
                                 // Crea un nuovo oggetto Cliente dai dati letti
                                 Cliente cliente = new Cliente(
                                     reader.GetString("ID"),
@@ -77,7 +76,8 @@ namespace AssemblyGestore
                         }
                     }
                 }
-                // Controlla se la lista dei clienti trovati è vuota // E' UN ECCEZIONE SPECIFICA, QUINDI LA METTO FUORI DAL BLOCCO TRY-CATCH,
+
+                // Controlla se la lista dei clienti trovati è vuota
                 if (clientiTrovati.Count == 0)
                 {
                     throw new InvalidOperationException("Nessun cliente trovato con il parametro di ricerca specificato.");
@@ -86,17 +86,18 @@ namespace AssemblyGestore
             catch (MySqlException ex)
             {
                 // ex.Message restituisce solo il messaggio di errore dell'eccezione, mentre ex restituisce l'intera eccezione, compresi i dettagli
-                throw new InvalidOperationException("Errore durante connessine al  database. Messaggio di errore: " + ex);
+                throw new InvalidOperationException("Errore durante la connessione al database. Messaggio di errore: " + ex.Message);
             }
             catch (Exception ex)
             {
                 // Lancia un'eccezione con un messaggio personalizzato per tutti gli altri errori
                 throw new InvalidOperationException(ex.Message);
-
             }
+
             // Restituisce la lista dei clienti trovati
             return clientiTrovati;
         }
+
 
         //___// (2) AGGIUNGI CLIENTE //___//
         public void AggiungiCliente(Cliente cliente)

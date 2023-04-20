@@ -10,6 +10,7 @@ using System.Runtime.Remoting.Channels.Http;
 
 namespace ClientiLibrary
 {
+    [Serializable]
     public class Cliente
     {
         public string ID { get; set; }
