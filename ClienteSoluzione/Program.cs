@@ -171,10 +171,6 @@ class Program
                     {
                         Console.WriteLine(e.Message);
                     }
-                    catch (InvalidOperationException e)
-                    {
-                        Console.WriteLine(e.Message + "Inserisci un nuovo ID.");
-                    }
                 }
 
                 string nome = InputValidationMessage("Inserisci il nome del cliente: ", Cliente.ValidaInput);
@@ -215,7 +211,7 @@ class Program
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Errore database: {ex.Message}");
+                Console.WriteLine($"Errore: {ex.Message}");
             }
         }
         // Salvataggio di tutti i clienti inseriti

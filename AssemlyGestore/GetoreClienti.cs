@@ -15,7 +15,7 @@ using System;
 
 namespace AssemblyGestore
 {
-    public class GestoreClienti : MarshalByRefObject, IGestoreC
+    public class GestoreClienti : MarshalByRefObject, IGestoreC // MarshalByRefObject è utilizzata per creare oggetti remoti
     {
         private string _connectionDB;
         // Costruttore che accetta il percorso come argomento
