@@ -1,21 +1,15 @@
 ﻿using ClientiLibrary;
-using System.Globalization;
-using System.Text;
 using System.Collections.Generic;
-//riferimenti database
 using MySql.Data.MySqlClient;
 using System.Collections;
-using MySqlX.XDevAPI;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
-using System.Data.SqlClient;
-using System.Data;
 using System;
 
 namespace AssemblyGestore
 {
-    public class GestoreClienti : MarshalByRefObject, IGestoreC // MarshalByRefObject è utilizzata per creare oggetti remoti
+    public class GestoreClienti : MarshalByRefObject, IGestoreC // MarshalByRefObject è utilizzata per creare oggetti remoti (posso condividere questa risorsa per diversi domini di applicazione)
     {
         private string _connectionDB;
         // Costruttore che accetta il percorso come argomento

@@ -46,11 +46,12 @@ namespace Server
             //object gestoreFileClientiInstance = Activator.CreateInstance(gestoreFileClientiType, filePercorso);
             GestoreFileClienti gestoreFileClienti = new GestoreFileClienti(filePercorso);
 
-            //Si registrano i servizi per le istanze delle classi create, in modo che possano essere utilizzati dai client attraverso il.NET Remoting.
+            // Registraro l'oggetto gestoreClientiInstance come oggetto remoto, in modo che i client possano accedervi da remoto tramite .NET Remoting. Il primo argomento del metodo è l'oggetto che deve essere registrato come oggetto remoto, che viene eseguito tramite l'implementazione della classe MarshalByRefObject. Il secondo argomento è il nome dell'oggetto remoto, che viene utilizzato dai client per accedere all'oggetto remoto registrato//Si registrano i servizi per le istanze delle classi create, in modo che possano essere utilizzati dai client attraverso il.NET Remoting.
             RemotingServices.Marshal((MarshalByRefObject)gestoreClientiInstance, "GestoreClienti");
             //RemotingServices.Marshal((MarshalByRefObject)gestoreFileClientiInstance, "GestoreFileClienti");
             RemotingServices.Marshal(gestoreFileClienti, "GestoreFileClienti");
 
+            //Console.ReadLine() è utilizzato per impedire alla console di chiudersi immediatamente dopo l'avvio del server
             Console.WriteLine("Server avviato. Premi INVIO per terminare...");
             Console.ReadLine();
         }
