@@ -387,3 +387,98 @@
 //        return input;
 //    }
 //}
+
+
+
+
+
+//using System;
+//using System.Runtime.Remoting;
+//using System.Runtime.Remoting.Channels;
+//using System.Runtime.Remoting.Channels.Tcp;
+//using AssemblyGestore;
+////using AssemlyGestore;
+
+//namespace RemotingServer
+//{
+//    class Program
+//    {
+//        static void Main(string[] args)
+//        {
+//            TcpChannel channel = new TcpChannel(8080);
+//            ChannelServices.RegisterChannel(channel, false);
+
+//            RemotingConfiguration.RegisterWellKnownServiceType(
+//                typeof(GestoreClienti),
+//                "GestoreClientiService",
+//                WellKnownObjectMode.Singleton);
+
+//            Console.WriteLine("Server avviato. Premi ENTER per terminare...");
+//            Console.ReadLine();
+//        }
+//    }
+//}
+
+
+
+using System;
+using System.Configuration;
+using System.Reflection;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Http;
+using System.Runtime.Remoting.Channels.Tcp;
+using AssemblyGestore;
+using AssemblyGestoreFile;
+
+//namespace Server
+//{
+    class Program
+    {
+    //static void Main(string[] args)
+    //{
+    //    HttpChannel channel = new HttpChannel(8080);
+    //    ChannelServices.RegisterChannel(channel, false);
+
+    //    // Ottenere le stringhe di connessione dal file di configurazione
+    //    string connectionDB = ConfigurationManager.AppSettings["DatabaseConnection"];
+    //    //string filePercorso = ConfigurationManager.AppSettings["FileConnection"];
+
+    //    // Caricamento degli assembly dinamicamente
+    //    Assembly assemblyGestore = Assembly.LoadFrom(@"C:\Users\d.dieleuterio\source\repos\ProgettoFramework\ClienteSoluzione\AssemlyGestore\obj\Debug\AssemlyGestore.dll");
+    //    Assembly assemblyGestoreFile = Assembly.LoadFrom(@"C:\Users\d.dieleuterio\source\repos\ProgettoFramework\ClienteSoluzione\AssemblyGestoreFile\obj\Debug\AssemblyGestoreFile.dll");
+
+    //    // Ottenere i tipi delle classi GestoreClienti e GestoreFileClienti dagli assembly caricati
+    //    Type gestoreClientiType = assemblyGestore.GetType("AssemblyGestore.GestoreClienti");
+    //    //Type gestoreFileClientiType = assemblyGestoreFile.GetType("AssemblyGestoreFile.GestoreFileClienti");
+
+    //    //Console.WriteLine("File path: " + filePercorso);
+
+    //    // Creazione delle istanze delle classi
+    //    object gestoreClientiInstance = Activator.CreateInstance(gestoreClientiType, connectionDB);
+    //    //object gestoreFileClientiInstance = Activator.CreateInstance(gestoreFileClientiType, filePercorso);
+
+    //    // Registrazione dei servizi per le istanze delle classi create
+    //    RemotingServices.Marshal((MarshalByRefObject)gestoreClientiInstance, "GestoreClienti");
+    //    //RemotingServices.Marshal((MarshalByRefObject)gestoreFileClientiInstance, "GestoreFileClienti");
+
+    //    Console.WriteLine("Server avviato. Premi INVIO per terminare...");
+    //    Console.ReadLine();
+    //}
+    static void Main(string[] args)
+    {
+        HttpChannel channel = new HttpChannel(8080);
+        ChannelServices.RegisterChannel(channel, false);
+        string connectionDB = ConfigurationManager.AppSettings["DatabaseConnection"];
+
+        Assembly assemblyGestore = Assembly.LoadFrom(@"C:\Users\d.dieleuterio\source\repos\ProgettoFramework\ClienteSoluzione\AssemlyGestore\obj\Debug\AssemlyGestore.dll");
+
+        Type gestoreClientiType = assemblyGestore.GetType("AssemblyGestore.GestoreClienti");
+        object gestoreClientiInstance = Activator.CreateInstance(gestoreClientiType, connectionDB);
+        RemotingServices.Marshal((MarshalByRefObject)gestoreClientiInstance, "GestoreClienti");
+
+        Console.WriteLine("Server avviato. Premi INVIO per terminare...");
+        Console.ReadLine();
+    }
+}
+//}
